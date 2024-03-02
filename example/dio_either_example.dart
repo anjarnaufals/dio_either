@@ -12,7 +12,9 @@ import 'your_error.dart';
 const String baseUrl = 'https://jsonplaceholder.typicode.com';
 const String postlistUrl = '/comments';
 const Map<String, dynamic> query = {"postId": "1"};
-const Map<String, String> _constHeader = {};
+const Map<String, String> _constHeader = {
+  HttpHeaders.acceptHeader: "accept: application/json",
+};
 
 void main() async {
   await getPostList();
@@ -23,6 +25,7 @@ class YourClient {
     //your logic token case
     final token = '';
     final authorizationHeader = {
+      HttpHeaders.acceptHeader: "accept: application/json",
       HttpHeaders.authorizationHeader: 'Bearer $token',
       //your unique device id system
       "Device-ID": Platform.isAndroid ? 'Unique.androidId' : ' Unique.iosId',
@@ -37,9 +40,6 @@ class YourClient {
     return DioEither(
       baseUrl: baseUrl,
       headers: useAuthentication ? await _authorization() : _constHeader,
-      acceptHeaders: {
-        HttpHeaders.acceptHeader: "accept: application/json",
-      },
     );
   }
 }

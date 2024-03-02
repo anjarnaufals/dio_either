@@ -7,9 +7,9 @@ import 'package:either_dart/either.dart';
 import 'package:logger/logger.dart';
 
 part 'api_exception.dart';
+part 'dio_http_interceptor_formatter.dart';
 part 'http_common_request.dart';
 part 'http_status_code.dart';
-part 'dio_http_interceptor_formatter.dart';
 
 class DioEither with HttpCommonRequest {
   static const Duration kconnectTimeout = Duration(milliseconds: 1000);
@@ -18,7 +18,6 @@ class DioEither with HttpCommonRequest {
 
   DioEither({
     required baseUrl,
-    required acceptHeaders,
     required headers,
   }) {
     _dio = Dio(
