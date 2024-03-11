@@ -26,8 +26,9 @@ abstract mixin class HttpCommonRequest {
     T? data, {
     showLog = false,
   });
-  Future head(
-    String url, {
+  Future head<T>(
+    String url,
+    T? data, {
     Map<String, dynamic>? query,
     showLog = false,
   });

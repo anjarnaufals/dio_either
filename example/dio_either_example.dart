@@ -1,14 +1,12 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:dio_either/dio_either.dart';
 import 'package:either_dart/either.dart';
 
 import 'todo.dart';
 import 'your_error.dart';
 
-// set tup
-// https://jsonplaceholder.typicode.com
-// remove https://
 const String baseUrl = 'https://jsonplaceholder.typicode.com';
 const String postlistUrl = '/comments';
 const Map<String, dynamic> query = {"postId": "1"};
@@ -40,6 +38,7 @@ class YourClient {
     return DioEither(
       baseUrl: baseUrl,
       headers: useAuthentication ? await _authorization() : _constHeader,
+      dio: Dio(),
     );
   }
 }

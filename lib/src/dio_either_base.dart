@@ -17,18 +17,18 @@ class DioEither with HttpCommonRequest {
   static const Duration ksendTimeout = Duration(milliseconds: 5000);
 
   DioEither({
-    required baseUrl,
-    required headers,
+    required String baseUrl,
+    required Map<String, dynamic> headers,
+    required Dio dio,
   }) {
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: kconnectTimeout,
-        receiveTimeout: kreceiveTimeout,
-        sendTimeout: ksendTimeout,
-        headers: headers,
-      ),
+    dio.options = BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: kconnectTimeout,
+      receiveTimeout: kreceiveTimeout,
+      sendTimeout: ksendTimeout,
+      headers: headers,
     );
+    _dio = dio;
   }
 
   late final Dio _dio;
@@ -97,8 +97,9 @@ class DioEither with HttpCommonRequest {
   }
 
   @override
-  Future head(
-    String url, {
+  Future<Either<ApiException, dynamic>> head<T>(
+    String url,
+    T? data, {
     Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
@@ -109,12 +110,12 @@ class DioEither with HttpCommonRequest {
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
     return await _eitherCallDio(
-      _dio.head(url, queryParameters: query),
+      _dio.head(url, queryParameters: query, data: data),
     );
   }
 
   @override
-  Future patch<T>(
+  Future<Either<ApiException, dynamic>> patch<T>(
     String url,
     T? data, {
     showLog = false,
