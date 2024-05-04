@@ -1,17 +1,17 @@
 name: dio_either
 description: A starting point for Dart libraries or applications.
-version: 1.0.1
-# repository: https://github.com/my_org/my_repo
+version: 1.0.2
+repository: https://github.com/anjarnaufals/dio_either
 environment:
-  sdk: ^3.3.0
+  sdk: ^3.3.4
 
 # Add regular dependencies here.
 dependencies:
-  dio: ^5.4.1
+  dio: ^5.4.1+1
   dio_smart_retry: ^6.0.0
   either_dart: ^1.0.0
   http_mock_adapter: ^0.6.1
-  logger: ^2.0.2+1
+  logger: ^2.2.0
 
 dev_dependencies:
   collection: ^1.18.0
