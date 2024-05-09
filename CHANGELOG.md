@@ -1,3 +1,7 @@
+## 1.0.3
+
+- add query parameters on PUT method
+
 ## 1.0.2
 
 - update dependency dio, logger
