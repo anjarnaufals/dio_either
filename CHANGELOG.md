@@ -1,3 +1,8 @@
+## 1.0.4
+
+- add query parameters on POST method
+- add query parameters on DELETE method
+
 ## 1.0.3
 
 - add query parameters on PUT method

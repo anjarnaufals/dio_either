@@ -54,6 +54,7 @@ class DioEither with HttpCommonRequest {
   Future<Either<ApiException, dynamic>> post<T>(
     String url,
     T? data, {
+    Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
   }) async {
@@ -62,7 +63,11 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.post(url, data: data));
+    return await _eitherCallDio(_dio.post(
+      url,
+      data: data,
+      queryParameters: query,
+    ));
   }
 
   @override
@@ -98,7 +103,13 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.delete(url, data: data));
+    return await _eitherCallDio(
+      _dio.delete(
+        url,
+        data: data,
+        queryParameters: query,
+      ),
+    );
   }
 
   @override
