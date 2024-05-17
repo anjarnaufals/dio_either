@@ -221,7 +221,7 @@ void main() {
 
       final res = await dioEither.put(
         path,
-        dataUploaded,
+        data: dataUploaded,
         showLog: true,
       );
 
@@ -253,7 +253,7 @@ void main() {
 
       final res = await dioEither.put(
         path,
-        dataUploaded,
+        data: dataUploaded,
         showLog: true,
       );
 

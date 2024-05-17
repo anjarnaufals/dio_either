@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Change Data paramaters become nullable on PUT Method
+
 ## 1.0.4
 
 - add query parameters on POST method

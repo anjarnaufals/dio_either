@@ -12,8 +12,8 @@ abstract mixin class HttpCommonRequest {
     showLog = false,
   });
   Future put<T>(
-    String url,
-    T? data, {
+    String url, {
+    T? data,
     Map<String, dynamic>? query,
     showLog = false,
   });

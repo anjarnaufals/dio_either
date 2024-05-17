@@ -73,7 +73,8 @@ class DioEither with HttpCommonRequest {
   @override
   Future<Either<ApiException, dynamic>> put<T>(
     String url,
-    T? data, {
+    {
+      T? data, 
     Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
