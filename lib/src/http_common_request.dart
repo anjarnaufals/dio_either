@@ -12,8 +12,9 @@ abstract mixin class HttpCommonRequest {
     showLog = false,
   });
   Future put<T>(
-    String url,
-    T? data, {
+    String url, {
+    T? data,
+    Map<String, dynamic>? query,
     showLog = false,
   });
   Future delete<T>(
@@ -26,8 +27,9 @@ abstract mixin class HttpCommonRequest {
     T? data, {
     showLog = false,
   });
-  Future head(
-    String url, {
+  Future head<T>(
+    String url,
+    T? data, {
     Map<String, dynamic>? query,
     showLog = false,
   });

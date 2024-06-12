@@ -7,9 +7,9 @@ import 'package:either_dart/either.dart';
 import 'package:logger/logger.dart';
 
 part 'api_exception.dart';
+part 'dio_http_interceptor_formatter.dart';
 part 'http_common_request.dart';
 part 'http_status_code.dart';
-part 'dio_http_interceptor_formatter.dart';
 
 class DioEither with HttpCommonRequest {
   static const Duration kconnectTimeout = Duration(milliseconds: 1000);
@@ -17,19 +17,18 @@ class DioEither with HttpCommonRequest {
   static const Duration ksendTimeout = Duration(milliseconds: 5000);
 
   DioEither({
-    required baseUrl,
-    required acceptHeaders,
-    required headers,
+    required String baseUrl,
+    required Map<String, dynamic> headers,
+    required Dio dio,
   }) {
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: kconnectTimeout,
-        receiveTimeout: kreceiveTimeout,
-        sendTimeout: ksendTimeout,
-        headers: headers,
-      ),
+    dio.options = BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: kconnectTimeout,
+      receiveTimeout: kreceiveTimeout,
+      sendTimeout: ksendTimeout,
+      headers: headers,
     );
+    _dio = dio;
   }
 
   late final Dio _dio;
@@ -55,6 +54,7 @@ class DioEither with HttpCommonRequest {
   Future<Either<ApiException, dynamic>> post<T>(
     String url,
     T? data, {
+    Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
   }) async {
@@ -63,13 +63,18 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.post(url, data: data));
+    return await _eitherCallDio(_dio.post(
+      url,
+      data: data,
+      queryParameters: query,
+    ));
   }
 
   @override
   Future<Either<ApiException, dynamic>> put<T>(
-    String url,
-    T? data, {
+    String url, {
+    T? data,
+    Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
   }) async {
@@ -78,7 +83,11 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.put(url, data: data));
+    return await _eitherCallDio(_dio.put(
+      url,
+      data: data,
+      queryParameters: query,
+    ));
   }
 
   @override
@@ -94,12 +103,19 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.delete(url, data: data));
+    return await _eitherCallDio(
+      _dio.delete(
+        url,
+        data: data,
+        queryParameters: query,
+      ),
+    );
   }
 
   @override
-  Future head(
-    String url, {
+  Future<Either<ApiException, dynamic>> head<T>(
+    String url,
+    T? data, {
     Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
@@ -110,12 +126,12 @@ class DioEither with HttpCommonRequest {
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
     return await _eitherCallDio(
-      _dio.head(url, queryParameters: query),
+      _dio.head(url, queryParameters: query, data: data),
     );
   }
 
   @override
-  Future patch<T>(
+  Future<Either<ApiException, dynamic>> patch<T>(
     String url,
     T? data, {
     showLog = false,
