@@ -15,7 +15,12 @@ const Map<String, dynamic> query = {"postId": "1"};
 const Map<String, String> _constHeader = {};
 
 void main() async {
-  await getPostList();
+  var data = await getPostList();
+  if (data.isLeft) {
+    // do your error case
+  } else {
+    // do your success case
+  }
 }
 
 class YourClient {
@@ -67,6 +72,17 @@ Future<Either<YourError, List<Todo>>> getPostList() async {
       ).toList();
 
       return Right(todoList);
+
+      // or you can use safetyParse for handling type cast error when
+      // parse data raw map<String,dynamic> to model
+
+      // return safetyCast(
+      //   data,
+      //   (data) => List<Todo>.from(
+      //     List.from(data).map((e) => Todo.fromMap(e)),
+      //   ).toList(),
+      //   (error) => YourError(msg: error),
+      // );
     }
   } catch (e) {
     rethrow;
