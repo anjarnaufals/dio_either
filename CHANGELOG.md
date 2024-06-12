@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Add logging stacktrace on safety cast function
+
 ## 1.0.6
 
 - Add safety cast model capability

@@ -74,16 +74,23 @@ Future<Either<YourError, List<Todo>>> getPostList() async {
 
       // or you can use safetyParse for handling type cast error when
       // parse data raw map<String,dynamic> to model
+      // var unknown = await getUknown();
 
       // return safetyCast(
-      //   data,
+      //   unknown,
       //   (data) => List<Todo>.from(
       //     List.from(data).map((e) => Todo.fromMap(e)),
       //   ).toList(),
       //   (error) => YourError(msg: error),
+      //   showStacktrace: true,
       // );
     }
   } catch (e) {
     rethrow;
   }
+}
+
+Future<Either<dynamic, dynamic>> getUknown() async {
+  var uknown = {};
+  return Right(uknown);
 }
