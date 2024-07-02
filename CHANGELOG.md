@@ -1,3 +1,8 @@
+## 1.0.8
+
+- update dependencies
+- refactor DioInterceptorFormatter 
+
 ## 1.0.7
 
 - Add logging stacktrace on safety cast function
@@ -12,8 +17,7 @@
 
 ## 1.0.4
 
-- add query parameters on POST method
-- add query parameters on DELETE method
+- Change Data paramaters become nullable on PUT Methodd
 
 ## 1.0.3
 

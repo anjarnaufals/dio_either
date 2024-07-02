@@ -7,7 +7,6 @@ const _startTimeKey = '$_prefix@start_time';
 
 // refference for this knowledge
 // https://github.com/assemmarwan/dio_http_formatter/blob/master/lib/src/dio_http_formatter_base.dart
-// update DioError[@deprecated] to DioException
 
 class DioInterceptorFormatter extends Interceptor {
   // Logger object to pretty print the HTTP Request
@@ -23,18 +22,21 @@ class DioInterceptorFormatter extends Interceptor {
   /// Optionally add a filter that will log if the function returns true
   final HttpLoggerFilter? _httpLoggerFilter;
 
+  /// Pretty print JSON
+  final _jsonEncoder = const JsonEncoder.withIndent('  ');
+
   /// Optionally can add custom [LogPrinter]
-  DioInterceptorFormatter({
-    bool includeRequest = true,
-    bool includeRequestHeaders = true,
-    bool includeRequestQueryParams = true,
-    bool includeRequestBody = true,
-    bool includeResponse = true,
-    bool includeResponseHeaders = true,
-    bool includeResponseBody = true,
-    Logger? logger,
-    HttpLoggerFilter? httpLoggerFilter,
-  })  : _includeRequest = includeRequest,
+  DioInterceptorFormatter(
+      {bool includeRequest = true,
+      bool includeRequestHeaders = true,
+      bool includeRequestQueryParams = true,
+      bool includeRequestBody = true,
+      bool includeResponse = true,
+      bool includeResponseHeaders = true,
+      bool includeResponseBody = true,
+      Logger? logger,
+      HttpLoggerFilter? httpLoggerFilter})
+      : _includeRequest = includeRequest,
         _includeRequestHeaders = includeRequestHeaders,
         _includeRequestQueryParams = includeRequestQueryParams,
         _includeRequestBody = includeRequestBody,
@@ -43,13 +45,11 @@ class DioInterceptorFormatter extends Interceptor {
         _includeResponseBody = includeResponseBody,
         _logger = logger ??
             Logger(
-              printer: PrettyPrinter(
-                methodCount: 0,
-                colors: true,
-                printTime: false,
-                printEmojis: false,
-              ),
-            ),
+                printer: PrettyPrinter(
+                    methodCount: 0,
+                    colors: true,
+                    printTime: false,
+                    printEmojis: false)),
         _httpLoggerFilter = httpLoggerFilter;
 
   @override
@@ -77,23 +77,25 @@ class DioInterceptorFormatter extends Interceptor {
         _logger.e(message);
       }
     }
-
     return super.onError(err, handler);
   }
 
   /// Whether to pretty print a JSON or return as regular String
   String _getBody(dynamic data, String? contentType) {
     final type = contentType?.toLowerCase();
-    if (type?.contains('application/json') == true ||
-        type?.contains('application/x-www-form-urlencoded') == true) {
-      const encoder = JsonEncoder.withIndent('  ');
+    if (type?.contains('application/json') == true) {
       // Since the JSON could be a Map or List
       dynamic jsonBody;
-      jsonBody = data is String ? jsonDecode(data) : data;
-
-      return encoder.convert(jsonDecode(jsonEncode(jsonBody)));
+      if (data is String) {
+        jsonBody = jsonDecode(data);
+      } else {
+        jsonBody = data;
+      }
+      return _jsonEncoder.convert(jsonDecode(jsonEncode(jsonBody)));
+    } else if (type?.contains('application/x-www-form-urlencoded') == true) {
+      return _jsonEncoder.convert(jsonDecode(jsonEncode(data)));
     } else if (type?.contains("multipart/form-data") == true) {
-      return const JsonEncoder.withIndent('  ').convert(formDataToJson(data));
+      return _jsonEncoder.convert(formDataToJson(data));
     } else {
       return data.toString();
     }
@@ -111,7 +113,6 @@ class DioInterceptorFormatter extends Interceptor {
       }
       result += '\n${params.join('\n')}';
     }
-
     return result;
   }
 
@@ -179,7 +180,6 @@ class DioInterceptorFormatter extends Interceptor {
       responseString += "length=${file.value.length}]";
       map[file.key] = responseString;
     }
-
     return map;
   }
 }

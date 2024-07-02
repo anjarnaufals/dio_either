@@ -37,6 +37,7 @@ class DioEither with HttpCommonRequest {
   Future<Either<ApiException, dynamic>> get(
     String url, {
     Map<String, dynamic>? query,
+    Object? data,
     showLog = false,
     retries = 3,
   }) async {
@@ -46,7 +47,11 @@ class DioEither with HttpCommonRequest {
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
     return await _eitherCallDio(
-      _dio.get(url, queryParameters: query),
+      _dio.get(
+        url,
+        data: data,
+        queryParameters: query,
+      ),
     );
   }
 
@@ -134,6 +139,7 @@ class DioEither with HttpCommonRequest {
   Future<Either<ApiException, dynamic>> patch<T>(
     String url,
     T? data, {
+    Map<String, dynamic>? query,
     showLog = false,
     retries = 3,
   }) async {
@@ -142,7 +148,11 @@ class DioEither with HttpCommonRequest {
     _dio.interceptors
         .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
 
-    return await _eitherCallDio(_dio.patch(url, data: data));
+    return await _eitherCallDio(_dio.patch(
+      url,
+      data: data,
+      queryParameters: query,
+    ));
   }
 
   Future<Either<ApiException, dynamic>> _eitherCallDio(
