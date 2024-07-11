@@ -1,3 +1,8 @@
+## 1.0.9
+
+- bump dio dependencies
+
+
 ## 1.0.8
 
 - update dependencies
