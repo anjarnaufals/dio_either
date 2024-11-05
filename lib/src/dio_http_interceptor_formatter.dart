@@ -25,24 +25,29 @@ class DioInterceptorFormatter extends Interceptor {
   /// Pretty print JSON
   final _jsonEncoder = const JsonEncoder.withIndent('  ');
 
+  ///
+  final String _reposName;
+
   /// Optionally can add custom [LogPrinter]
-  DioInterceptorFormatter(
-      {bool includeRequest = true,
-      bool includeRequestHeaders = true,
-      bool includeRequestQueryParams = true,
-      bool includeRequestBody = true,
-      bool includeResponse = true,
-      bool includeResponseHeaders = true,
-      bool includeResponseBody = true,
-      Logger? logger,
-      HttpLoggerFilter? httpLoggerFilter})
-      : _includeRequest = includeRequest,
+  DioInterceptorFormatter({
+    bool includeRequest = true,
+    bool includeRequestHeaders = true,
+    bool includeRequestQueryParams = true,
+    bool includeRequestBody = true,
+    bool includeResponse = true,
+    bool includeResponseHeaders = true,
+    bool includeResponseBody = true,
+    Logger? logger,
+    HttpLoggerFilter? httpLoggerFilter,
+    String reposName = "",
+  })  : _includeRequest = includeRequest,
         _includeRequestHeaders = includeRequestHeaders,
         _includeRequestQueryParams = includeRequestQueryParams,
         _includeRequestBody = includeRequestBody,
         _includeResponse = includeResponse,
         _includeResponseHeaders = includeResponseHeaders,
         _includeResponseBody = includeResponseBody,
+        _reposName = reposName,
         _logger = logger ??
             Logger(
                 printer: PrettyPrinter(
@@ -61,7 +66,11 @@ class DioInterceptorFormatter extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (_httpLoggerFilter == null || _httpLoggerFilter()) {
-      final message = _prepareLog(response.requestOptions, response);
+      final message = _prepareLog(
+        response.requestOptions,
+        response,
+        reposName: _reposName,
+      );
       if (message != '') {
         _logger.i(message);
       }
@@ -72,7 +81,11 @@ class DioInterceptorFormatter extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (_httpLoggerFilter == null || _httpLoggerFilter()) {
-      final message = _prepareLog(err.requestOptions, err.response);
+      final message = _prepareLog(
+        err.requestOptions,
+        err.response,
+        reposName: _reposName,
+      );
       if (message != '') {
         _logger.e(message);
       }
@@ -117,11 +130,19 @@ class DioInterceptorFormatter extends Interceptor {
   }
 
   /// Extracts the headers and body (if any) from the request and response
-  String _prepareLog(RequestOptions? requestOptions, Response? response) {
+  String _prepareLog(
+    RequestOptions? requestOptions,
+    Response? response, {
+    String reposName = '',
+  }) {
     var requestString = '', responseString = '';
 
     if (_includeRequest) {
       requestString = '⤴ REQUEST ⤴\n\n';
+
+      if (reposName.isNotEmpty) {
+        requestString += '⤴ REPOSITORY => $reposName ⤴\n\n';
+      }
 
       requestString +=
           '${requestOptions?.method ?? ''} ${requestOptions?.path ?? ''}\n';

@@ -4,33 +4,33 @@ abstract mixin class HttpCommonRequest {
   Future get(
     String url, {
     Map<String, dynamic>? query,
-    showLog = false,
+    bool showLog = false,
   });
   Future post<T>(
     String url,
     T? data, {
-    showLog = false,
+    bool showLog = false,
   });
   Future put<T>(
     String url, {
     T? data,
     Map<String, dynamic>? query,
-    showLog = false,
+    bool showLog = false,
   });
   Future delete<T>(
     String url, {
     T? data,
-    showLog = false,
+    bool showLog = false,
   });
   Future patch<T>(
     String url,
     T? data, {
-    showLog = false,
+    bool showLog = false,
   });
   Future head<T>(
     String url,
     T? data, {
     Map<String, dynamic>? query,
-    showLog = false,
+    bool showLog = false,
   });
 }

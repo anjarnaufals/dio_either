@@ -1,3 +1,16 @@
+## 1.0.10
+
+### Changed
+- **`showlog`**: Changed variable type from `dynamic` to `bool` for better type safety.
+- **`retries`**: Changed variable type from `dynamic` to `int` to ensure consistent handling of retry counts.
+
+### Added
+- **`retryDelays`** in `COMMON REQUEST`:
+  - Specifies the delays between retry attempts.
+  - If the number of attempts (defined by `retries`) exceeds the number of values in `retryDelays`, the final value in `retryDelays` will be used for subsequent retries.
+  - `name` parameter to `something` function to display function name in console logs.
+
+
 ## 1.0.9
 
 - bump dio dependencies

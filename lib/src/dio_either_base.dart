@@ -33,18 +33,34 @@ class DioEither with HttpCommonRequest {
 
   late final Dio _dio;
 
+  static const List<Duration> _retryDelaysDefault = [
+    Duration(seconds: 1),
+    Duration(seconds: 3),
+    Duration(seconds: 5)
+  ];
+
   @override
   Future<Either<ApiException, dynamic>> get(
     String url, {
     Map<String, dynamic>? query,
     Object? data,
-    showLog = false,
-    retries = 3,
+    bool showLog = false,
+    int retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(
       _dio.get(
@@ -60,13 +76,23 @@ class DioEither with HttpCommonRequest {
     String url,
     T? data, {
     Map<String, dynamic>? query,
-    showLog = false,
-    retries = 3,
+    bool showLog = false,
+    int retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(_dio.post(
       url,
@@ -80,13 +106,23 @@ class DioEither with HttpCommonRequest {
     String url, {
     T? data,
     Map<String, dynamic>? query,
-    showLog = false,
-    retries = 3,
+    bool showLog = false,
+    int retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(_dio.put(
       url,
@@ -102,11 +138,21 @@ class DioEither with HttpCommonRequest {
     showLog = false,
     T? data,
     retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(
       _dio.delete(
@@ -122,13 +168,23 @@ class DioEither with HttpCommonRequest {
     String url,
     T? data, {
     Map<String, dynamic>? query,
-    showLog = false,
-    retries = 3,
+    bool showLog = false,
+    int retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(
       _dio.head(url, queryParameters: query, data: data),
@@ -140,13 +196,23 @@ class DioEither with HttpCommonRequest {
     String url,
     T? data, {
     Map<String, dynamic>? query,
-    showLog = false,
-    retries = 3,
+    bool showLog = false,
+    int retries = 3,
+    List<Duration>? retryDelays,
+    String? name,
   }) async {
-    if (showLog) _dio.interceptors.add(DioInterceptorFormatter());
+    if (showLog) {
+      _dio.interceptors.add(DioInterceptorFormatter(
+        reposName: name ?? "",
+      ));
+    }
 
-    _dio.interceptors
-        .add(RetryInterceptor(dio: _dio, retries: retries, logPrint: log));
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      retries: retries,
+      logPrint: log,
+      retryDelays: retryDelays ?? _retryDelaysDefault,
+    ));
 
     return await _eitherCallDio(_dio.patch(
       url,
@@ -195,6 +261,18 @@ class DioEither with HttpCommonRequest {
           res: e.response?.data,
         ));
       }
+      if (e.type == DioExceptionType.badCertificate) {
+        return Left(ApiException(
+          code: e.response?.statusCode,
+          message: badCertificateMsg,
+        ));
+      }
+      if (e.type == DioExceptionType.cancel) {
+        return Left(ApiException(
+          code: e.response?.statusCode,
+          message: cancelMsg,
+        ));
+      }
 
       return Left(ApiException(
         code: e.response?.statusCode,
@@ -224,3 +302,7 @@ const String formatExceptionMsg = 'Something error, data cannot proceed';
 
 const String unkownErrorMsg =
     "Something error, check your internet connection.";
+
+const badCertificateMsg = "Unknown Bad Certificate";
+
+const cancelMsg = "Unknown Request Canceled";

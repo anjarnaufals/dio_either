@@ -15,6 +15,9 @@ void main() {
   const Map<String, dynamic> failureResponse = {
     "error": "something Error",
   };
+
+  Null internalServerErrorResponse;
+
   const Map<String, dynamic> headers = {};
 
   group('DioEither Test', () {
@@ -393,5 +396,80 @@ void main() {
 
       expect(eitherFailure, failureResponse);
     });
+  });
+
+  test('GET method 500 Internal Server Error', () async {
+    // mocking GET method success response
+    dioMock.onGet(path, (server) {
+      server.reply(500, internalServerErrorResponse);
+    });
+
+    final DioEither dioEither = DioEither(
+      baseUrl: baseUrl,
+      headers: headers,
+      dio: dio,
+    );
+
+    final res = await dioEither.get(
+      path,
+      showLog: true,
+      retries: 0,
+    );
+
+    dynamic eitherSuccessOrFailure;
+
+    if (res.isLeft) {
+      eitherSuccessOrFailure = res.left.res;
+    }
+
+    if (res.isRight) {
+      eitherSuccessOrFailure = res.right;
+    }
+
+    expect(eitherSuccessOrFailure, null);
+  });
+
+  test('GET method retries simulation 3 times -> 0,1,2 error | 3 Success',
+      () async {
+    // mocking GET method seqeuntial twice error then success
+    dioMock.onGet(path, (server) async {
+      server.reply(500, internalServerErrorResponse);
+      await Future.delayed(Duration(seconds: 2));
+      server.reply(500, internalServerErrorResponse);
+      await Future.delayed(Duration(seconds: 4));
+      server.reply(500, internalServerErrorResponse);
+      await Future.delayed(Duration(seconds: 6));
+      server.reply(200, internalServerErrorResponse);
+    });
+
+    final DioEither dioEither = DioEither(
+      baseUrl: baseUrl,
+      headers: headers,
+      dio: dio,
+    );
+
+    final res = await dioEither.get(
+      path,
+      name: "Get Something Repository Test",
+      showLog: true,
+      retries: 3,
+      retryDelays: [
+        Duration(seconds: 2),
+        Duration(seconds: 4),
+        Duration(seconds: 6),
+      ],
+    );
+
+    dynamic eitherSuccessOrFailure;
+
+    if (res.isLeft) {
+      eitherSuccessOrFailure = res.left.res;
+    }
+
+    if (res.isRight) {
+      eitherSuccessOrFailure = res.right;
+    }
+
+    expect(eitherSuccessOrFailure, null);
   });
 }
