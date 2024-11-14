@@ -1,5 +1,6 @@
 part of 'dio_either_base.dart';
 
+/// typedef custom for HttpLoggerFilter
 typedef HttpLoggerFilter = bool Function();
 
 const _prefix = 'dio_http_formatter';
@@ -8,6 +9,7 @@ const _startTimeKey = '$_prefix@start_time';
 // refference for this knowledge
 // https://github.com/assemmarwan/dio_http_formatter/blob/master/lib/src/dio_http_formatter_base.dart
 
+/// DioInterceptorFormatter base class
 class DioInterceptorFormatter extends Interceptor {
   // Logger object to pretty print the HTTP Request
   final Logger _logger;
@@ -50,11 +52,12 @@ class DioInterceptorFormatter extends Interceptor {
         _reposName = reposName,
         _logger = logger ??
             Logger(
-                printer: PrettyPrinter(
-                    methodCount: 0,
-                    colors: true,
-                    printTime: false,
-                    printEmojis: false)),
+              printer: PrettyPrinter(
+                methodCount: 0,
+                colors: true,
+                printEmojis: false,
+              ),
+            ),
         _httpLoggerFilter = httpLoggerFilter;
 
   @override
@@ -188,6 +191,7 @@ class DioInterceptorFormatter extends Interceptor {
     return requestString + responseString;
   }
 
+  /// converting form data to json in result Map<String, dynamic>
   Map<String, dynamic> formDataToJson(FormData formData) {
     final map = <String, dynamic>{};
     for (final entry in formData.fields) {

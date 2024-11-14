@@ -1,3 +1,18 @@
+## 1.1.12
+
+- bump dio_smart_retry dependencies
+- bump logger dependencies
+- update pana score points
+
+### Breaking Change
+- `MultipartFileRecreatable` removed from `dio` on `5.7.0`
+- start From Migrating to 7.0, `dio_smart_retry` Use `MultipartFile` instead of `MultipartFileRecreatable`.
+
+### Improved
+Enhanced documentation and code clarity 
+- Updated class-level comment to clearly describe `ApiException`'s purpose as a model for handling standardized error responses from Dio.
+- Renamed `res` to `response` for better clarity, and updated its description to emphasize it holds additional data from the response or exception.
+
 ## 1.0.11
 
 - bump dio dependencies

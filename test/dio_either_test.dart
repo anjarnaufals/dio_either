@@ -72,7 +72,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -135,7 +135,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -199,7 +199,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -263,7 +263,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -327,7 +327,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -391,7 +391,7 @@ void main() {
       dynamic eitherFailure;
 
       if (res.isLeft) {
-        eitherFailure = res.left.res;
+        eitherFailure = res.left.response;
       }
 
       expect(eitherFailure, failureResponse);
@@ -419,7 +419,7 @@ void main() {
     dynamic eitherSuccessOrFailure;
 
     if (res.isLeft) {
-      eitherSuccessOrFailure = res.left.res;
+      eitherSuccessOrFailure = res.left.response;
     }
 
     if (res.isRight) {
@@ -463,7 +463,7 @@ void main() {
     dynamic eitherSuccessOrFailure;
 
     if (res.isLeft) {
-      eitherSuccessOrFailure = res.left.res;
+      eitherSuccessOrFailure = res.left.response;
     }
 
     if (res.isRight) {

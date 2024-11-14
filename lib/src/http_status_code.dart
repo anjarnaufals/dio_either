@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs
+
 part of 'dio_either_base.dart';
 
+/// list of http status code
 sealed class HttpStatusCodes {
   // Success
   static const int ok = 200;

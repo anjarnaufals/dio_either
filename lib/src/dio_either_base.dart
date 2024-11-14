@@ -11,11 +11,19 @@ part 'dio_http_interceptor_formatter.dart';
 part 'http_common_request.dart';
 part 'http_status_code.dart';
 
+///[DioEither]
+/// A base class Dio Either Package
 class DioEither with HttpCommonRequest {
+  /// default duration for connection timeout in milliseconds
   static const Duration kconnectTimeout = Duration(milliseconds: 1000);
+
+  /// default duration for receive timeout in milliseconds
   static const Duration kreceiveTimeout = Duration(milliseconds: 3000);
+
+  /// default duration for send timeout in milliseconds
   static const Duration ksendTimeout = Duration(milliseconds: 5000);
 
+  /// constructor
   DioEither({
     required String baseUrl,
     required Map<String, dynamic> headers,
@@ -251,14 +259,14 @@ class DioEither with HttpCommonRequest {
         return Left(ApiException(
           code: e.response?.statusCode,
           message: e.message,
-          res: e.response?.data,
+          response: e.response?.data,
         ));
       }
       if (e.type == DioExceptionType.unknown) {
         return Left(ApiException(
           code: e.response?.statusCode,
           message: unkownErrorMsg,
-          res: e.response?.data,
+          response: e.response?.data,
         ));
       }
       if (e.type == DioExceptionType.badCertificate) {
@@ -277,7 +285,7 @@ class DioEither with HttpCommonRequest {
       return Left(ApiException(
         code: e.response?.statusCode,
         message: e.message,
-        res: e.response?.data,
+        response: e.response?.data,
       ));
     } on FormatException {
       return Left(
@@ -289,20 +297,27 @@ class DioEither with HttpCommonRequest {
   }
 }
 
+/// default message for connection timeout error
 const String connectionTimeoutErrorMsg =
     "Unable to establish a connection. The remote server did not respond within the specified time. Please check the server's availability and your network connection.";
 
+/// default message for reception timeout error
 const String receiveTimoutErrorMsg =
     "Data reception timeout. The expected data did not arrive from the server within the specified time. Please ensure the server is responsive and try again.";
 
+/// default message for sending timeout error
 const String sendTimeoutErrorMsg =
     "Data sending timeout. The data could not be sent to the remote server within the allotted time. This might be due to network congestion or server responsiveness issues.";
 
+/// default message for formating exception error
 const String formatExceptionMsg = 'Something error, data cannot proceed';
 
+/// default message for unknown error
 const String unkownErrorMsg =
     "Something error, check your internet connection.";
 
+/// default message for Unknown Bad Certificate
 const badCertificateMsg = "Unknown Bad Certificate";
 
+/// default message for requst canceled
 const cancelMsg = "Unknown Request Canceled";
