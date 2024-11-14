@@ -167,4 +167,3 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 Points: 160/160.
 
-X:\Personal\Dart Library\dio_either_pana_score_copy_purpose>
