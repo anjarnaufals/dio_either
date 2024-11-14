@@ -1,13 +1,13 @@
 name: dio_either
 description: Simplify http request use Dio
-version: 1.0.10
+version: 1.0.11
 repository: https://github.com/anjarnaufals/dio_either
 environment:
   sdk: ^3.3.4
 
 # Add regular dependencies here.
 dependencies:
-  dio: ^5.5.0+1
+  dio: ^5.7.0
   dio_smart_retry: ^6.0.0
   either_dart: ^1.0.0
   http_mock_adapter: ^0.6.1

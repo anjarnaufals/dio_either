@@ -1,3 +1,7 @@
+## 1.0.11
+
+- bump dio dependencies
+
 ## 1.0.10
 
 ### Changed
