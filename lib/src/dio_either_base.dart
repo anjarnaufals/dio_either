@@ -15,25 +15,34 @@ part 'http_status_code.dart';
 /// A base class Dio Either Package
 class DioEither with HttpCommonRequest {
   /// default duration for connection timeout in milliseconds
-  static const Duration kconnectTimeout = Duration(milliseconds: 1000);
+  static const Duration _kconnectTimeout = Duration(milliseconds: 1000);
 
   /// default duration for receive timeout in milliseconds
-  static const Duration kreceiveTimeout = Duration(milliseconds: 3000);
+  static const Duration _kreceiveTimeout = Duration(milliseconds: 3000);
 
   /// default duration for send timeout in milliseconds
-  static const Duration ksendTimeout = Duration(milliseconds: 5000);
+  static const Duration _ksendTimeout = Duration(milliseconds: 5000);
 
   /// constructor
+  ///
+  /// if [kconnectTimeout] is null then [_kconnectTimeout] used
+  ///
+  /// if [kreceiveTimeout] is null then [_kreceiveTimeout] used
+  ///
+  /// if [ksendTimeout] is null then [_ksendTimeout] used
   DioEither({
     required String baseUrl,
     required Map<String, dynamic> headers,
     required Dio dio,
+    Duration? kconnectTimeout,
+    Duration? kreceiveTimeout,
+    Duration? ksendTimeout,
   }) {
     dio.options = BaseOptions(
       baseUrl: baseUrl,
-      connectTimeout: kconnectTimeout,
-      receiveTimeout: kreceiveTimeout,
-      sendTimeout: ksendTimeout,
+      connectTimeout: kconnectTimeout ?? _kconnectTimeout,
+      receiveTimeout: kreceiveTimeout ?? _kreceiveTimeout,
+      sendTimeout: ksendTimeout ?? _ksendTimeout,
       headers: headers,
     );
     _dio = dio;

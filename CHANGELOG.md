@@ -1,3 +1,9 @@
+## 1.1.13
+
+- kconnectTimeout become parameter optional on DioEither
+- kreceiveTimeout become parameter optional on DioEither
+- ksendTimeout become parameter optional on DioEither
+
 ## 1.1.12
 
 - bump dio_smart_retry dependencies
@@ -5,11 +11,14 @@
 - update pana score points
 
 ### Breaking Change
+
 - `MultipartFileRecreatable` removed from `dio` on `5.7.0`
 - start From Migrating to 7.0, `dio_smart_retry` Use `MultipartFile` instead of `MultipartFileRecreatable`.
 
 ### Improved
-Enhanced documentation and code clarity 
+
+Enhanced documentation and code clarity
+
 - Updated class-level comment to clearly describe `ApiException`'s purpose as a model for handling standardized error responses from Dio.
 - Renamed `res` to `response` for better clarity, and updated its description to emphasize it holds additional data from the response or exception.
 
@@ -20,25 +29,25 @@ Enhanced documentation and code clarity
 ## 1.0.10
 
 ### Changed
+
 - **`showlog`**: Changed variable type from `dynamic` to `bool` for better type safety.
 - **`retries`**: Changed variable type from `dynamic` to `int` to ensure consistent handling of retry counts.
 
 ### Added
+
 - **`retryDelays`** in `COMMON REQUEST`:
   - Specifies the delays between retry attempts.
   - If the number of attempts (defined by `retries`) exceeds the number of values in `retryDelays`, the final value in `retryDelays` will be used for subsequent retries.
   - `name` parameter to `something` function to display function name in console logs.
 
-
 ## 1.0.9
 
 - bump dio dependencies
 
-
 ## 1.0.8
 
 - update dependencies
-- refactor DioInterceptorFormatter 
+- refactor DioInterceptorFormatter
 
 ## 1.0.7
 
