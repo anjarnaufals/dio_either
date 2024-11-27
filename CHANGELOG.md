@@ -1,3 +1,16 @@
+## 1.1.14
+
+### change
+
+rollback dio_smart_retry to version 6.0.0 , temporary.
+
+### reason
+
+flutter stable 3.24.5 sdk is pinned collection package version on 1.18.0,
+whereas dio_smart_retry 7.0.1 is depends on http_parser 4.1.0 and http_parser depends on collection 1.19.0.
+temporary solution for "version solving failed" , temporary rollback dio_smart_retry to 6.0.0 until flutter stable
+update pinned package collection to 1.19.0,
+
 ## 1.1.13
 
 - kconnectTimeout become parameter optional on DioEither
