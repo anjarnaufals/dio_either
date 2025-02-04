@@ -191,7 +191,7 @@ class DioInterceptorFormatter extends Interceptor {
     return requestString + responseString;
   }
 
-  /// converting form data to json in result Map<String, dynamic>
+  /// converting form data to json in result `Map<String, dynamic>`
   Map<String, dynamic> formDataToJson(FormData formData) {
     final map = <String, dynamic>{};
     for (final entry in formData.fields) {

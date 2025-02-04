@@ -33,9 +33,8 @@
  
 
 ### ✗ 10/10 points: 20% or more of the public API has dartdoc comments
-40 out of 60 API elements (66.7 %) have documentation comments.
 
-Some symbols that are missing documentation: `dio_either.HttpStatusCodes.accepted`, `dio_either.HttpStatusCodes.badGateway`, `dio_either.HttpStatusCodes.badRequest`, `dio_either.HttpStatusCodes.created`, `dio_either.HttpStatusCodes.forbidden`.
+36 out of 36 API elements (100.0 %) have documentation comments.
   
 
 ### ✔ 10/10 points: Package has an example

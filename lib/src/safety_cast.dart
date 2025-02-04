@@ -17,7 +17,7 @@ import 'package:logger/logger.dart';
 ///
 /// ***Limitation !***
 ///
-/// ***Make Sure fromMap Callback parameter is Map<String,dynamic>***
+/// ***Make Sure fromMap Callback parameter is `Map<String,dynamic>`***
 ///
 Either<F, M> safetyCast<F, M>(
   Either<dynamic, dynamic> data,

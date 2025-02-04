@@ -1,3 +1,15 @@
+## 1.1.15
+
+### fix
+
+fix problem on version 1.1.14, see details on changelog.
+bump dependecies
+- dio 5.8.0+1
+- dio_smart_retry 7.0.1
+- collection 1.19.0
+- fix doc document linter unintended_html_in_doc_comment
+- removed http_status_code.dart file
+
 ## 1.1.14
 
 ### change

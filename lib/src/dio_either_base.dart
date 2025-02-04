@@ -9,7 +9,6 @@ import 'package:logger/logger.dart';
 part 'api_exception.dart';
 part 'dio_http_interceptor_formatter.dart';
 part 'http_common_request.dart';
-part 'http_status_code.dart';
 
 ///[DioEither]
 /// A base class Dio Either Package
