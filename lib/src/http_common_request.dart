@@ -1,4 +1,4 @@
-part of 'dio_either_base.dart';
+part of 'dio_either.dart';
 
 /// interface for HTTP request methods
 abstract mixin class HttpCommonRequest {

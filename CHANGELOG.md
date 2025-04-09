@@ -1,9 +1,23 @@
+## 1.1.16
+
+### chore
+
+- add analyzer dart_code_metrics
+- rename src/dio_either.dart from src/dio_either_base.dart for matching with filename
+- reanme dio_http_intercepter_formatter from dio_intercepter_formatter for matching with filename
+- update example
+- move http_mock_adapter library to dev dependencies
+- add frontend_server_client to dev dependencies
+- upgrade test library version
+- update description on pubspec.yaml
+
 ## 1.1.15
 
 ### fix
 
 fix problem on version 1.1.14, see details on changelog.
 bump dependecies
+
 - dio 5.8.0+1
 - dio_smart_retry 7.0.1
 - collection 1.19.0

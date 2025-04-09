@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-match-file-name
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -17,10 +19,18 @@ const Map<String, String> _constHeader = {
 void main() async {
   var data = await getPostList();
   if (data.isLeft) {
-    // do your error case
+    handleErrorCase();
   } else {
-    // do your success case
+    handleSuccessCase();
   }
+}
+
+void handleErrorCase() {
+  return;
+}
+
+void handleSuccessCase() {
+  return;
 }
 
 class YourClient {
@@ -56,6 +66,7 @@ Future<Either<YourError, List<Todo>>> getPostList() async {
           postlistUrl,
           query: query,
           showLog: true,
+          name: "getPostList",
         ));
 
     if (data.isLeft) {

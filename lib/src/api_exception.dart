@@ -1,4 +1,4 @@
-part of 'dio_either_base.dart';
+part of 'dio_either.dart';
 
 /// [ApiException]
 /// A custom exception model to standardize error responses from Dio, making

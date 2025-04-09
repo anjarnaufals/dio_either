@@ -1,4 +1,4 @@
-part of 'dio_either_base.dart';
+part of 'dio_either.dart';
 
 /// typedef custom for HttpLoggerFilter
 typedef HttpLoggerFilter = bool Function();
@@ -10,7 +10,7 @@ const _startTimeKey = '$_prefix@start_time';
 // https://github.com/assemmarwan/dio_http_formatter/blob/master/lib/src/dio_http_formatter_base.dart
 
 /// DioInterceptorFormatter base class
-class DioInterceptorFormatter extends Interceptor {
+class DioHttpInterceptorFormatter extends Interceptor {
   // Logger object to pretty print the HTTP Request
   final Logger _logger;
   final bool _includeRequest,
@@ -31,7 +31,7 @@ class DioInterceptorFormatter extends Interceptor {
   final String _reposName;
 
   /// Optionally can add custom [LogPrinter]
-  DioInterceptorFormatter({
+  DioHttpInterceptorFormatter({
     bool includeRequest = true,
     bool includeRequestHeaders = true,
     bool includeRequestQueryParams = true,

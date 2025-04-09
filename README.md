@@ -15,7 +15,7 @@
 
 | Dependency | Version | Link | 
 |--------------------|----------|----------------------------------------------| 
-| `dio` | ^5.7.0 	 | [dio on pub.dev](https://pub.dev/packages/dio) | 
+| `dio` | ^5.8.0+1 	 | [dio on pub.dev](https://pub.dev/packages/dio) | 
 | `dio_smart_retry`  | ^7.0.1 | [dio_smart_retry on pub.dev](https://pub.dev/packages/dio_smart_retry) |
 | `either_dart`      | ^1.0.0 | [either_dart on pub.dev](https://pub.dev/packages/either_dart) |
 | `http_mock_adapter`| ^0.6.1 | [http_mock_adapter on pub.dev](https://pub.dev/packages/http_mock_adapter) | 

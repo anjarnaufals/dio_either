@@ -66,7 +66,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
@@ -98,7 +98,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
@@ -128,7 +128,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
@@ -158,7 +158,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
@@ -190,7 +190,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
@@ -218,7 +218,7 @@ class DioEither with HttpCommonRequest {
     String? name,
   }) async {
     if (showLog) {
-      _dio.interceptors.add(DioInterceptorFormatter(
+      _dio.interceptors.add(DioHttpInterceptorFormatter(
         reposName: name ?? "",
       ));
     }
